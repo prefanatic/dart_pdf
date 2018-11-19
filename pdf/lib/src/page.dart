@@ -38,6 +38,12 @@ class PDFPage extends PDFObject {
   /// The xobjects or other images in the pdf
   final xObjects = new Map<String, PDFXObject>();
 
+  /// The resources associated with this page
+  final resources = new Map<String, PDFStream>();
+
+  /// Graphics state, representing only opacity.
+  final graphicsState = new Map<String, PDFGraphicsState>();
+
   /// This constructs a Page object, which will hold any contents for this
   /// page.
   ///
@@ -178,8 +184,6 @@ class PDFPage extends PDFObject {
     }
 
     // Now the resources
-    /// This holds any resources for this page
-    final resources = new Map<String, PDFStream>();
 
     // fonts
     if (fonts.length > 0) {
@@ -189,6 +193,11 @@ class PDFPage extends PDFObject {
     // Now the XObjects
     if (xObjects.length > 0) {
       resources["/XObject"] = new PDFStream()..putObjectDictionary(xObjects);
+    }
+
+    if (graphicsState.length > 0) {
+      resources["/ExtGState"] = new PDFStream()
+        ..putObjectDictionary(graphicsState);
     }
 
     params["/Resources"] = PDFStream.dictionary(resources);

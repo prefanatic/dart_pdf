@@ -182,6 +182,15 @@ class PDFGraphics {
         "${color.r} ${color.g} ${color.b} rg ${color.r} ${color.g} ${color.b} RG\n");
   }
 
+  /// Sets the opacity for drawing
+  void setOpacity(double opacity) {
+    final int stateIndex = page.graphicsState.length + 1;
+
+    page.graphicsState['/GS$stateIndex'] =
+        PDFGraphicsState(page.pdfDocument, opacity: opacity);
+    buf.putString("/GS$stateIndex gs\n");
+  }
+
   /// Set the transformation Matrix
   void setTransform(Matrix4 t) {
     var s = t.storage;

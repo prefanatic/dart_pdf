@@ -24,13 +24,18 @@ class PDFInfo extends PDFObject {
   String title;
   String subject;
   String keywords;
+  String producer;
 
   /// @param title Title of this document
-  PDFInfo(PDFDocument pdfDocument,
-      {this.title, this.author, this.creator, this.subject, this.keywords})
-      : super(pdfDocument, null) {
-    params["/Producer"] = PDFStream.text("dpdf - David PHAM-VAN");
-  }
+  PDFInfo(
+    PDFDocument pdfDocument, {
+    this.title,
+    this.author,
+    this.creator,
+    this.subject,
+    this.keywords,
+    this.producer,
+  }) : super(pdfDocument, null);
 
   /// @param os OutputStream to send the object to
   @override
@@ -42,5 +47,6 @@ class PDFInfo extends PDFObject {
     if (title != null) params["/Title"] = PDFStream.text(title);
     if (subject != null) params["/Subject"] = PDFStream.text(subject);
     if (keywords != null) params["/Keywords"] = PDFStream.text(keywords);
+    if (producer != null) params["/Producer"] = PDFStream.text(producer);
   }
 }

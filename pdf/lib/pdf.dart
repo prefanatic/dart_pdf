@@ -35,6 +35,7 @@ part 'src/font.dart';
 part 'src/font_descriptor.dart';
 part 'src/formxobject.dart';
 part 'src/graphics.dart';
+part 'src/graphics_state.dart';
 part 'src/image.dart';
 part 'src/info.dart';
 part 'src/object.dart';
